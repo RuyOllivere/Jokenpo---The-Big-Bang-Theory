@@ -17,9 +17,9 @@ O sistema permite o gerenciamento de cards (criação, leitura, atualização e 
 
 Abaixo, uma prévia dos cards exibidos pelo sistema:
 
-![Cards](img/cards.png)
+![Cards](img/imagem.png)
 
-_(Substitua `cards.png` pelo nome correto da imagem presente na pasta `img`.)_
+_(Substitua `imagem.png` pelo nome correto da imagem presente na pasta `img`.)_
 
 ---
 
