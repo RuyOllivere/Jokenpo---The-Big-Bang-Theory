@@ -19,22 +19,7 @@ Abaixo, uma prévia dos cards exibidos pelo sistema:
 
 ![Cards](img/imagem.png)
 
-_(Substitua `imagem.png` pelo nome correto da imagem presente na pasta `img`.)_
-
 ---
-
-## 🗂️ Estrutura do Projeto
-
-JOKENPO
-├── img/
-│ └── imagem.png
-├── Conexao.class.php
-├── conexao.php
-├── index.php
-├── jogo.php
-├── Jokenpo.class.php
-├── Player.class.php
-└── style.css
 
 ## ▶️ Como Executar
 
