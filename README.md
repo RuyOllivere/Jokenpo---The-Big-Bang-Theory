@@ -26,6 +26,7 @@ Abaixo, uma prévia dos cards exibidos pelo sistema:
 
 ## ▶️ Como Executar
 
-1. Clone o repositório:
+1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/RuyOllivere/Jokenpo---The-Big-Bang-Theory.git
+   git clone https://github.com/RuyOllivere/Jokenpo-The-Big-Bang-Theory.git
+   cd Jokenpo-The-Big-Bang-Theory
