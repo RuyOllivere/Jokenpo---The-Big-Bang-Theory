@@ -3,7 +3,10 @@
 Este projeto é um sistema desenvolvido em **PHP** com integração ao **MySQL**, incluindo **criptografia de senhas** para garantir maior segurança dos usuários.
 
 ## 📌 Sobre o Projeto
-O sistema permite o gerenciamento de cards (criação, leitura, atualização e exclusão), utilizando práticas seguras de autenticação e acesso ao banco de dados.
+Este sistema implementa o jogo “Pedra, Papel, Tesoura, Lagarto, Spock”, versão estendida do clássico Jokenpo, popularizada pela série The Big Bang Theory.
+Diferente do Jokenpo tradicional, esta variação inclui duas jogadas adicionais — Lagarto e Spock — criando um conjunto maior de possibilidades e regras.
+
+O projeto foi desenvolvido em PHP, utilizando orientação a objetos, integração com MySQL (se aplicável), além de boas práticas de organização e estruturação do código.
 
 ### ⚙️ Tecnologias Utilizadas
 - **PHP** (backend)
