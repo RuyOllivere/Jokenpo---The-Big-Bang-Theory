@@ -35,12 +35,73 @@ class Jokenpo{
 	//-> Verifica player
 	private function getPlayer(){		
 		if(!isset($_SESSION['usuario'])){
-			echo "<link rel='stylesheet' href='style.css'>";
-			echo '<form method="post">';
-			echo '<input type="text" name="user" placeholder="Usuário"><br>';
-			echo '<input type="password" name="pass" placeholder="Senha"><br>';
-			echo '<input type="submit" value="Entrar">';
-			echo '</form>';
+			// echo "<link rel='stylesheet' href='style.css'>";
+			// echo '<form method="post">';
+			// echo '<input type="text" name="user" placeholder="Usuário"><br>';
+			// echo '<input type="password" name="pass" placeholder="Senha"><br>';
+			// echo '<input type="submit" value="Entrar">';
+			// echo '</form>';
+
+			    echo '
+    			<!DOCTYPE html>
+    			<html lang="en">
+    			<head>
+    			  <meta charset="UTF-8">
+    			  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    			  <title>Glassmorphism Login</title>
+    			  <link rel="stylesheet" href="login.css">
+    			</head>
+    			<body>
+    			  <div class="container">
+    			    <div class="login-card">
+					
+    			      <div class="trail trail-1"></div>
+    			      <div class="trail trail-2"></div>
+					
+    			      <div class="avatar-container">
+    			        <div class="avatar-icon">
+    			          <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    			            <path d="M50 45H10C8.89543 45 8 44.1046 8 43V22C8 20.8954 8.89543 20 10 20H16L19 15H41L44 20H50C51.1046 20 52 20.8954 52 22V43C52 44.1046 51.1046 45 50 45Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    			            <circle cx="30" cy="32" r="8" stroke="currentColor" stroke-width="2.5"/>
+    			          </svg>
+    			        </div>
+    			      </div>
+					
+    			      <form method="post">
+					
+    			        <div class="input-group">
+    			          <div class="input-icon">
+    			            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    			              <path d="M10 10C12.7614 10 15 7.76142 15 5C15 2.23858 12.7614 0 10 0C7.23858 0 5 2.23858 5 5C5 7.76142 7.23858 10 10 10Z" fill="currentColor"/>
+    			              <path d="M10 12.5C5 12.5 2.5 15 2.5 17.5V20H17.5V17.5C17.5 15 15 12.5 10 12.5Z" fill="currentColor"/>
+    			            </svg>
+    			          </div>
+    			          <input type="text" name="user" placeholder="Username" id="username">
+    			        </div>
+					
+    			        <div class="input-group">
+    			          <div class="input-icon">
+    			            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    			              <rect x="3" y="9" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+    			              <path d="M6 9V6C6 3.79086 7.79086 2 10 2C12.2091 2 14 3.79086 14 6V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    			              <circle cx="10" cy="14" r="1.5" fill="currentColor"/>
+    			            </svg>
+    			          </div>
+    			          <input type="password" name="pass" placeholder="Password" id="password">
+    			        </div>
+					
+    			        <button class="login-btn" type="submit">LOGIN</button>
+					
+    			      </form>
+					
+    			    </div>
+    			  </div>
+					
+    			  <script src="scripts/script.js"></script>
+    			</body>
+    			</html>
+    			';
+
 			$this->sala = null;
 		}else{
 			$this->usuario = $_SESSION['usuario'];		
@@ -182,6 +243,18 @@ class Jokenpo{
 			echo "Erro" . $e->getMessage();
 		}
 	}
+
+
+	public function getUsuario(){return $this->usuario;}
+	public function getUsuarioUUID(){return $this->usuarioUUID;}
+	public function getJogador(){return $this->jogador;}
+	public function getSala(){return $this->sala;}
+	public function getPartida(){return $this->partida;}
+
+	public function listarSalas(){
+
+	}
+
 	
 	//-> Inicia Jogo
 	public function iniciarJogo(){
@@ -191,30 +264,42 @@ class Jokenpo{
 		
 		echo "<link rel='stylesheet' href='style.css'>";
 
-		echo "Jogador: {$this->usuario} | <a href='?logout'>Logout</a><br>";
-		echo "ID do Jogador: {$this->usuarioUUID}<br>";
-		echo "Sou o {$this->jogador}<br>";
-		echo "Sala: {$this->sala}<br>";
-		echo "Partida: {$this->partida}<hr>";
+		echo "
+		<div class='info-box'>
+		    Jogador: {$this->usuario} | <a href='?logout'>Logout</a><br>
+		    ID do Jogador: {$this->usuarioUUID}<br>
+		    Sou o {$this->jogador}<br>
+		    Sala: {$this->sala}<br>
+		    Partida: {$this->partida}<hr>
+		</div>";
 		
 		//-> Verifica se esta em uma sala e se dados são validos
 		if($this->sala == null){
 			try {
 				$stmt = $this->conn->prepare("SELECT * FROM sala WHERE idJogador1 = :u OR idJogador2 = :u");
 				$stmt->execute(["u" => $this->usuarioUUID]);
-				echo "<b>Salas criadas</b>";
+				echo "<div class='salas-box'>";
+				echo "<div class='salas-title'><b>Salas criadas</b></div>";
+
 				while($lista = $stmt->fetch()){
-					echo "<br><a href='?sala={$lista['uuid']}'>";
-					echo "Sala: {$lista['uuid']} | Entrar </a>";
-					echo "<br>Convite: localhost:8080/jokento/index.php?convite={$lista['uuid']}";
+				
+				    echo "<div class='sala-item'>";
+				    echo "<a href='?sala={$lista['uuid']}'>Sala: {$lista['uuid']} — Entrar</a>";
+				    echo "<span class='convite-link'>Convite: localhost:8080/jokento/index.php?convite={$lista['uuid']}</span>";
+				    echo "</div>";
 				}
+
+				echo "</div>";
+
 			} catch (PDOException $e) {
 				echo "Erro" . $e->getMessage();
 			}
 
 		}else{
-			echo "Sala: $this->sala | <a href='?sairsala'>Sair da Sala</a>";
-			echo "<hr>";
+			echo "<div class='sala-atual-box'>";
+			echo "Sala: {$this->sala} | <a href='?sairsala'>Sair da Sala</a>";
+			echo "</div>";
+
 			try {
 				$stmt = $this->conn->prepare("SELECT * FROM partidas WHERE id = :id");
 				$stmt->execute(["id" => $this->partida]);
@@ -231,29 +316,42 @@ class Jokenpo{
 				echo "Error" . $e->getMessage();
 			}
 			
+			echo "<div class='status-box'>";
+
 			$menu = true;   
+
 			if($j1Escolha === NULL){
-				echo "<br>Status: Aguardando Jogador 1";
-				if($this->jogador == "Jogador2"){$menu = false;}
-				echo "<script>setTimeout(function(){location.reload()},4000);</script>";
+			
+			    echo "Status: Aguardando Jogador 1";
+			    if($this->jogador == 'Jogador2'){ $menu = false; }
+			
+			    echo "<script>setTimeout(function(){location.reload()},4000);</script>";
+			
 			}elseif($j2Escolha === NULL){
-				echo "<br>Status: Aguardando Jogador 2";
-				if($this->jogador == "Jogador1"){$menu = false;}
-				echo "<script>setTimeout(function(){location.reload()},4000);</script>";
+			
+			    echo "Status: Aguardando Jogador 2";
+			    if($this->jogador == 'Jogador1'){ $menu = false; }
+			
+			    echo "<script>setTimeout(function(){location.reload()},4000);</script>";
+			
 			}else{
-				echo "<br>".$this->validaRodada($j1Escolha , $j2Escolha);
-				if($this->jogador == "Jogador1"){
-					echo "<br><a href='?novarodada={$this->sala}'>Nova rodada</a>";
-				}else{
-					echo "<br><a href='?novarodada=0'>Nova rodada</a>";
-				}			
-				
-				$menu = false;
+			
+			    echo $this->validaRodada($j1Escolha, $j2Escolha);
+			
+			    if($this->jogador == 'Jogador1'){
+			        echo "<br><a href='?novarodada={$this->sala}'>Nova rodada</a>";
+			    }else{
+			        echo "<br><a href='?novarodada=0'>Nova rodada</a>";
+			    }
+			
+			    $menu = false;
 			}
+
+			echo "</div>";
+
 			
 			
 			if($menu){
-				echo "<hr>";
 				echo "<div class='collection'>";
 				echo "<div class='menu__container'><div class='menu'><a href='?jogada=0'>Pedra</a></div></div> <br>";
 				echo "<div class='menu__container'><div class='menu'><a href='?jogada=1'>Papel</a></div></div> <br>";
